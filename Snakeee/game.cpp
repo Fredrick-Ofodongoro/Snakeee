@@ -1,4 +1,4 @@
-#include <Windows.h>
+#include <windows.h>
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <ctime>
@@ -110,6 +110,11 @@ void drawSnake() {
             snake_length = MAX;
         food = true;
 
+    }
+    for (int j = 1; j < snake_length; j++)
+    {
+        if (posX[j] == posX[0] && posY[j] == posY[0])
+            gameOver = true;
     }
 
 
