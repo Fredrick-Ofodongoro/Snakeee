@@ -17,6 +17,8 @@ int snake_length = 5;
 short sDirection = RIGHT;
 bool food = true;
 int foodX, foodY;
+bool food1 = true;
+int food1x,foodly;
 extern bool gameOver;
 extern int score;
 //function to initialize grid
@@ -65,6 +67,22 @@ void drawFood() {
     food = false;
     glRectf(foodX, foodY, foodX + 1, foodY + 1);
     glColor3f(0.0, 0.5, 0.5); //color of food = green
+    
+  if (food1)
+        random1(foodx, foody);
+    food1= false;
+    glRectf(food1x, food1y, food1x + 1, food1y + 1);
+    glColor3f(0.6, 0.8, 1.0);  
+    
+}
+
+void random1(int& i, int& j){
+    int_max1X= gridX - 2;
+    int_max1y= gridY - 2;
+    int_min1 =1;
+    srand(time(NULL));
+    i=_min1 + rand() % (_max1X - _min1);
+     i=_min1 + rand() % (_max1X - _min1);
 }
 void random(int& x, int& y) {
     int _maxX = gridX - 2;
