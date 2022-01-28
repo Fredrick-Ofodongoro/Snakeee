@@ -5,12 +5,14 @@
 #include <stdlib.h>
 #include <string>
 #include <cstring>
+#include <iostream>
+using namespace std;
 
 
 #define COLUMNS 40
 #define ROWS 40
 //how many frames the snake moves per second
-#define FPS 10
+#define FPS 15
 #define MessageBox // remove if it shows errors
 
 //point to variable that stores snake direction in game.cpp
@@ -27,7 +29,7 @@ void keyboard_callback(int, int, int);
 
 
 void init() {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.8, 0.6, 1.0, 1.0);
     initGrid(COLUMNS, ROWS);
 
 }
@@ -57,17 +59,21 @@ void display_callback()
     drawSnake();
     drawFood();
     glutSwapBuffers();
-    //should show message box but idk how to do that on linux yet
-    if (gameOver) {
+    //displaying the score 
+    if (gameOver == true)
+    {
 
         char _score[10];
         itoa(score, _score, 10);
         char text[50] = "Your score is: ";
         strcat(text, _score);
         MessageBox(NULL, text, "GAME OVER");
+        cout << text, "GAMEOVER";
         exit(0);
 
     }
+   
+   
 
 
 

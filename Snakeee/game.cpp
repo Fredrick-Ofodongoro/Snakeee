@@ -17,6 +17,8 @@ int snake_length = 5;
 short sDirection = RIGHT;
 bool food = true;
 int foodX, foodY;
+bool food1 = true;
+int food1x, food1y;
 extern bool gameOver;
 extern int score;
 //function to initialize grid
@@ -60,11 +62,26 @@ void unit(int x, int y) {
 //function for the food
 void drawFood() {
 
-    if (food)
+    if (food) 
         random(foodX, foodY);
-    food = false;
+        food = false;//if the food available at that point then move to the next random
     glRectf(foodX, foodY, foodX + 1, foodY + 1);
-    glColor3f(0.0, 0.5, 0.5); //color of food = green
+    glColor3f(0.0, 0.5, 0.5); 
+    if (food1) 
+        random1(food1x, food1y);
+        food1 = false;
+    glRecti(food1x, food1y, food1x + 1, food1y + 1);
+    glColor3f(0.6, 0.8, 1.0);
+}
+void random1(int& i,int& j) {
+    int _max1X = gridX - 2;
+    int _max1y = gridY - 2;
+    int _min1 = 1;
+    srand(time(NULL));
+    i = _min1 + rand() % (_max1X - _min1);
+    j = _min1 + rand() % (_max1y - _min1);
+
+
 }
 void random(int& x, int& y) {
     int _maxX = gridX - 2;
@@ -92,7 +109,7 @@ void drawSnake() {
         posX[0]--;
     for (int i = 0; i < snake_length; i++) {
         if (i == 0)
-            glColor3f(0.0, 0.0, 1.0); //color of snake = blue
+            glColor3f(1.0, 1.0, 0.0); //color of snake = yellow
         else
             glColor3f(1.0, 0.0, 0.0);
         glRectd(posX[i], posY[i], posX[i] + 1, posY[i] + 1);
@@ -101,9 +118,8 @@ void drawSnake() {
 
     if (posX[0] == 0 || posX[0] == gridX - 1 || posY[0] == 0 || posY[0] == gridY - 1)
         gameOver = true;
+   
     if (posX[0] == foodX && posY[0] == foodY) {
-
-
         score++;
         snake_length++;
         if (snake_length > MAX)
@@ -111,6 +127,16 @@ void drawSnake() {
         food = true;
 
     }
+    if (posX[0] == food1x && posY[0] == food1y) {
+        score--;
+        snake_length --;
+        if (snake_length < MAX) {
+            food1 = true;
+            gameOver;
+
+        }
+    }
+
     for (int j = 1; j < snake_length; j++)
     {
         if (posX[j] == posX[0] && posY[j] == posY[0])
